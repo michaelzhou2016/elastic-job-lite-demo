@@ -1,0 +1,21 @@
+spring:
+  profiles:
+    active: peer1
+
+---
+spring:
+  profiles: peer1
+server:
+  port: 8080
+
+---
+spring:
+  profiles: peer2
+server:
+  port: 8081
+
+---
+spring:
+  profiles: peer3
+server:
+  port: 8082

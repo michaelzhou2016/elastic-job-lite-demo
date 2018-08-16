@@ -13,6 +13,22 @@
     <!--configure registry center -->
     <reg:zookeeper id="regCenter" server-lists="localhost:2181" namespace="dd-job" base-sleep-time-milliseconds="1000" max-sleep-time-milliseconds="3000" max-retries="3" />
 
+    <bean id="elasticJobLog" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+        <property name="driverClassName" value="org.mariadb.jdbc.Driver"/>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/batch_log"/>
+        <property name="username" value="root"/>
+        <property name="password" value="think@2018"/>
+    </bean>
+
     <!--configure job -->
-    <job:simple id="myElasticJob" class="com.vcredit.elasticjobdemo.job.MyElasticJob" registry-center-ref="regCenter" cron="0/10 * * * * ?"   sharding-total-count="3" sharding-item-parameters="0=A,1=B,2=C" />
+    <job:simple id="myElasticJob" class="com.vcredit.elasticjobdemo.job.MyElasticJob"
+                registry-center-ref="regCenter"
+                cron="0/60 * * * * ?"
+                sharding-total-count="3"
+                sharding-item-parameters="0=A,1=B,2=C"
+                description="我的第一个简单作业"
+                overwrite="true"
+                event-trace-rdb-data-source="elasticJobLog"
+                job-exception-handler="com.vcredit.elasticjobdemo.job.CustomJobExceptionHandler"
+    />
 </beans>

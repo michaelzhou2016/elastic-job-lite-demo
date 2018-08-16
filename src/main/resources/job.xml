@@ -29,6 +29,5 @@
                 description="我的第一个简单作业"
                 overwrite="true"
                 event-trace-rdb-data-source="elasticJobLog"
-                job-exception-handler="com.vcredit.elasticjobdemo.job.CustomJobExceptionHandler"
-    />
+                job-exception-handler="com.vcredit.elasticjobdemo.job.CustomJobExceptionHandler"/>
 </beans>
